@@ -1,6 +1,40 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
-const Home = () => {
+const Dashboard = () => {
+  const [timeState, setTimeState] = useState({
+    token: "",
+    month: "11",
+    year: "2022",
+  });
+
+  const getData = async () => {
+    try {
+      const response = await axios.post("/api/traffic", timeState);
+
+      if (response.data.success) {
+        console.log(response.data.data);
+      } else {
+        console.log(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const submitGetData = (e) => {
+    e.preventDefault();
+    getData();
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setTimeState({
+      ...timeState,
+      token: token,
+    });
+  }, []);
+
   return (
     <>
       <div className="grid grid-cols-1 gap-4 mx-auto px-10 py-10">
@@ -14,12 +48,14 @@ const Home = () => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 ></path>
               </svg>
             </div>
+          </div>
+          <form onSubmit={submitGetData}>
             <input
               datepicker=""
               datepicker-buttons=""
@@ -28,8 +64,6 @@ const Home = () => {
               className="bg-gray-50 border border-gray-300 text-slate-100 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 datepicker-input"
               placeholder="Select date"
             ></input>
-          </div>
-          <form>
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded mx-3">
               GET DATA
             </button>
@@ -74,4 +108,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Dashboard;

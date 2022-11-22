@@ -1,13 +1,10 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../../context/auth-context";
+import React, { useContext, useEffect, useState } from "react";
 import Toast from "../../utils/toast";
 
 const LoginForm = () => {
   const router = useRouter();
-
-  const { setUserAuthInfo } = useContext(AuthContext);
 
   const [loginForm, setLoginForm] = useState({
     account: "",
@@ -28,18 +25,28 @@ const LoginForm = () => {
   };
 
   const login = async (loginForm) => {
+    if (!account || !password) {
+      setToast({
+        message: "Vui lòng nhập đủ thông tin",
+      });
+      return;
+    }
+
     try {
       const response = await axios.post("/api/auth/login", loginForm);
       if (response.data.success === true) {
-        setUserAuthInfo(response.data.data.token);
-        router.push("/dashboard");
+        localStorage.setItem("token", response.data.data.data.data.token);
+        router.push("/");
       } else {
         setToast({
-          message: response.data.message,
+          message: response.data.data.message,
         });
       }
     } catch (error) {
       console.log(error);
+      setToast({
+        message: "Đăng nhập thất bại",
+      });
     }
   };
 
@@ -47,6 +54,13 @@ const LoginForm = () => {
     e.preventDefault();
     login(loginForm);
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      router.push("/");
+    }
+  }, []);
 
   return (
     <>

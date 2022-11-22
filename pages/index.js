@@ -1,18 +1,12 @@
-import Head from "next/head";
-import { useContext, useEffect } from "react";
-import { AuthContext } from "../context/auth-context";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import Dashboard from "../components/home/Dashboard";
 
 export default function Home() {
   const router = useRouter();
-  const { isAuthenticated } = useContext(AuthContext);
   useEffect(() => {
-    isAuthenticated ? router.push("/dashboard") : router.push("/login");
+    const token = localStorage.getItem("token");
+    token ? router.push("/") : router.push("/login");
   }, []);
-  return (
-    <>
-      <Head>
-        <title>Home</title>
-      </Head>
-    </>
-  );
+  return <Dashboard />;
 }

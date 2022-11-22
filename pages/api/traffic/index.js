@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   try {
     if (req.method === "POST") {
       const response = await axios.post(
-        process.env.VIETTEL_URL_LOGIN,
+        process.env.VIETTEL_URL_GET_DATA,
         req.body
       );
 
