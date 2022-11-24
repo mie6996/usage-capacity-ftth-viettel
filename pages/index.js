@@ -10,7 +10,6 @@ import {
 } from "chart.js/auto";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { parse2GB } from "../common/helpers";
 import BarChart from "../components/home/BarChart";
 import PieChart from "../components/home/PieChart";
 
@@ -38,14 +37,6 @@ export default function Home() {
     year: currentYear,
   });
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    setTimeState({
-      ...timeState,
-      token: token,
-    });
-  }, []);
-
   const [dataState, setDataState] = useState({
     trafficMonths: [],
     sumDownload: 0,
@@ -64,6 +55,8 @@ export default function Home() {
           sumUpload: response.data.data.data.sumUpload,
           sumTotalUse: response.data.data.data.sumTotalUse,
         });
+
+        // Update pieChartData
       } else {
         console.log(response.data.message);
       }
@@ -72,12 +65,15 @@ export default function Home() {
     }
   };
 
+  useEffect(() => {
+    getData();
+  }, [timeState]);
+
   const handleChangeMonth = (e) => {
     setTimeState({
       ...timeState,
       month: e.target.value,
     });
-    getData();
   };
 
   const handleChangeYear = (e) => {
@@ -85,20 +81,15 @@ export default function Home() {
       ...timeState,
       year: e.target.value,
     });
-    getData();
   };
-
-  const pieChartData = [
-    parse2GB(dataState.sumDownload),
-    parse2GB(dataState.sumUpload),
-  ];
-
-  const barChartData = dataState.trafficMonths;
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     token ? router.push("/") : router.push("/login");
-
+    setTimeState({
+      ...timeState,
+      token: token,
+    });
     getData();
   }, []);
 
@@ -149,10 +140,13 @@ export default function Home() {
         </div>
         <div className="flex justify-center flex-col items-center w-full">
           <div>
-            <PieChart data={pieChartData} />
+            <PieChart
+              sumDownload={dataState.sumDownload}
+              sumUpload={dataState.sumUpload}
+            />
           </div>
           <div className="p-8 w-full">
-            <BarChart data={barChartData} />
+            <BarChart trafficMonths={dataState.trafficMonths} />
           </div>
         </div>
       </div>

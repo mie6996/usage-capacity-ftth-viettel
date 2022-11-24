@@ -2,7 +2,9 @@ import React from "react";
 import { Bar } from "react-chartjs-2";
 import { parse2GB } from "../../common/helpers";
 
-const BarChart = ({ data }) => {
+const BarChart = ({ trafficMonths }) => {
+  const barChartData = trafficMonths;
+
   const options = {
     responsive: true,
     plugins: {
@@ -35,21 +37,21 @@ const BarChart = ({ data }) => {
   };
 
   const chartData = {
-    labels: data?.map((_) => _.date),
+    labels: barChartData?.map((_) => _.date),
     datasets: [
       {
         label: "Upload",
-        data: data?.map((_) => parse2GB(_.download)),
+        data: barChartData?.map((_) => parse2GB(_.download)),
         backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
       {
         label: "Download",
-        data: data?.map((_) => parse2GB(_.upload)),
+        data: barChartData?.map((_) => parse2GB(_.upload)),
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
       {
         label: "Total use",
-        data: data?.map((_) => parse2GB(_.totalUse)),
+        data: barChartData?.map((_) => parse2GB(_.totalUse)),
         backgroundColor: "rgba(153, 102, 255, 0.5)",
       },
     ],

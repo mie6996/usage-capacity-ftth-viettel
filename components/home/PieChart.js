@@ -1,7 +1,10 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
+import { parse2GB } from "../../common/helpers";
 
-const PieChart = ({ data }) => {
+const PieChart = ({ sumDownload, sumUpload }) => {
+  let pieChartData = [parse2GB(sumDownload), parse2GB(sumUpload)];
+
   const options = {
     responsive: true,
     plugins: {
@@ -35,7 +38,7 @@ const PieChart = ({ data }) => {
     datasets: [
       {
         label: "Dung lượng",
-        data: data?.map((_) => _),
+        data: pieChartData?.map((_) => _),
         backgroundColor: ["rgba(255, 206, 86, 0.5)", "rgba(255, 99, 132, 0.5)"],
         borderColor: ["rgba(255, 206, 86, 1)", "rgba(255, 99, 132, 1)"],
         borderWidth: 1,
