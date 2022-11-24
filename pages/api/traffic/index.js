@@ -7,7 +7,6 @@ export default async function handler(req, res) {
         process.env.VIETTEL_URL_GET_DATA,
         req.body
       );
-
       res.status(200).json({
         success: true,
         data: response.data,
@@ -20,6 +19,6 @@ export default async function handler(req, res) {
         .status(200)
         .json({ success: false, data: error.response.data });
     }
-    res.status(200).json({ success: false, message: error.message });
+    return res.status(200).json({ success: false, message: error.message });
   }
 }

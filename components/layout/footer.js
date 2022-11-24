@@ -3,7 +3,7 @@ import React from "react";
 const Footer = () => {
   return (
     <>
-      <footer className="bg-slate-800 w-full h-fit pt-4">
+      <footer className="bg-slate-800 pt-4">
         <div className="flex flex-col justify-center items-center h-full">
           <a href="https://github.com/xuanphat0603">
             <svg
