@@ -1,42 +1,36 @@
-import axios from "axios";
+import axios from 'axios';
 
 export default async function handler(req, res) {
   try {
-    if (req.method === "POST") {
+    if (req.method === 'POST') {
       const response = await axios.post(
         process.env.VIETTEL_URL_GET_DATA,
         req.body
       );
 
-      if (response.data.errorCode === -2) {
+      if (response.data.errorCode === '0') {
+        return res.status(200).json({
+          success: true,
+          message: 'Lấy data thành công!',
+          data: response.data.data,
+        });
+      }
+
+      if (response.data.errorCode === '-2') {
         return res.status(200).json({
           success: false,
           message: response.data.data.message,
         });
       }
 
-      if (response.data.errorCode === 1) {
-        return res.status(200).json({
-          success: false,
-          message: "Có lỗi xảy ra hoặc không có dữ liệu trả về.",
-        });
-      }
-
-      if (response.data.errorCode === 3) {
-        return res.status(200).json({
-          success: true,
-          message: "Thiếu tham số đầu vào",
-        });
-      }
-
       return res.status(200).json({
         success: true,
-        data: response.data,
+        message: response.data.data.resultString,
       });
     }
   } catch (error) {
     console.log(error);
-    if (error.code === "ERR_BAD_REQUEST") {
+    if (error.code === 'ERR_BAD_REQUEST') {
       return res
         .status(200)
         .json({ success: false, data: error.response.data });

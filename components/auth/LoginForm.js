@@ -1,21 +1,19 @@
-import axios from "axios";
-import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
-import Toast from "../../utils/toast";
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Toast from '../Toast';
 
 const LoginForm = () => {
   const router = useRouter();
 
   const [loginForm, setLoginForm] = useState({
-    account: "",
-    password: "",
+    account: '',
+    password: '',
   });
 
   const { account, password } = loginForm;
-
-  const [toast, setToast] = useState({
-    message: "",
-  });
 
   const onChangeLoginForm = (e) => {
     setLoginForm({
@@ -26,27 +24,21 @@ const LoginForm = () => {
 
   const login = async (loginForm) => {
     if (!account || !password) {
-      setToast({
-        message: "Vui lòng nhập đủ thông tin",
-      });
+      toast.error('Vui lòng nhập đầy đủ thông tin');
       return;
     }
 
     try {
-      const response = await axios.post("/api/auth/login", loginForm);
+      const response = await axios.post('/api/auth/login', loginForm);
       if (response.data.success === true) {
-        localStorage.setItem("token", response.data.data.data.data.token);
-        router.push("/");
+        localStorage.setItem('token', response.data.data.data.data.token);
+        router.push('/');
       } else {
-        setToast({
-          message: response.data.data.message,
-        });
+        toast.error(response.data.data.message);
       }
     } catch (error) {
       console.log(error);
-      setToast({
-        message: "Đăng nhập thất bại",
-      });
+      toast.error(error.message);
     }
   };
 
@@ -56,20 +48,20 @@ const LoginForm = () => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
     if (token) {
-      router.push("/");
+      router.push('/');
     }
   }, []);
 
   return (
     <>
+      <Toast />
       <div className="container">
         <form
           onSubmit={submitLoginForm}
           className="bg-white drop-shadow-lg rounded px-10 pt-10 pb-10 max-w-2xl mx-auto my-20 grow"
         >
-          <Toast props={toast} />
           <div>
             <div className="mb-6">
               <div className="block text-gray-700 text-5xl font-bold text-center">

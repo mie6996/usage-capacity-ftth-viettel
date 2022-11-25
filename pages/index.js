@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 import {
   BarElement,
   CategoryScale,
@@ -7,11 +7,13 @@ import {
   LinearScale,
   Title,
   Tooltip,
-} from "chart.js/auto";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import BarChart from "../components/home/BarChart";
-import PieChart from "../components/home/PieChart";
+} from 'chart.js/auto';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import BarChart from '../components/home/BarChart';
+import PieChart from '../components/home/PieChart';
+import Toast from '../components/Toast';
 
 ChartJS.register(
   CategoryScale,
@@ -32,7 +34,7 @@ export default function Home() {
   const years = [currentYear - 1, currentYear, currentYear + 1];
 
   const [timeState, setTimeState] = useState({
-    token: "",
+    token: '',
     month: currentMonth,
     year: currentYear,
   });
@@ -46,20 +48,23 @@ export default function Home() {
 
   const getData = async () => {
     try {
-      const response = await axios.post("/api/traffic", timeState);
+      const response = await axios.post('/api/traffic', timeState);
       if (response.data.success) {
         if (response.data.data) {
           setDataState({
             ...dataState,
-            trafficMonths: response.data.data.data.trafficMonths,
-            sumDownload: response.data.data.data.sumDownload,
-            sumUpload: response.data.data.data.sumUpload,
-            sumTotalUse: response.data.data.data.sumTotalUse,
+            trafficMonths: response.data.data.trafficMonths,
+            sumDownload: response.data.data.sumDownload,
+            sumUpload: response.data.data.sumUpload,
+            sumTotalUse: response.data.data.sumTotalUse,
           });
+          toast.success(response.data.message);
+        } else {
+          toast.error(response.data.message);
         }
       } else {
-        localStorage.removeItem("token");
-        router.push("/login");
+        localStorage.removeItem('token');
+        router.push('/login');
       }
     } catch (error) {
       console.log(error);
@@ -85,17 +90,17 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    token ? router.push("/") : router.push("/login");
+    const token = localStorage.getItem('token');
+    token ? router.push('/') : router.push('/login');
     setTimeState({
       ...timeState,
       token: token,
     });
-    getData();
   }, []);
 
   return (
     <>
+      <Toast />
       <div className="flex flex-col justify-center">
         <div className="flex p-4 justify-center">
           <div className="p-4">
@@ -147,7 +152,7 @@ export default function Home() {
               sumTotalUse={dataState.sumTotalUse}
             />
           </div>
-          <div className="p-8 w-full">
+          <div className="sm:p-8 w-full">
             <BarChart trafficMonths={dataState.trafficMonths} />
           </div>
         </div>
