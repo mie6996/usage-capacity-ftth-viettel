@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { authenticateUser, isAuthenticated } from '../../auth';
 import Toast from '../Toast';
 
 const LoginForm = () => {
@@ -32,12 +33,13 @@ const LoginForm = () => {
       const response = await axios.post('/api/auth/login', loginForm);
       if (response.data.success === true) {
         localStorage.setItem('token', response.data.data.data.data.token);
+        authenticateUser();
         router.push('/');
       } else {
         toast.error(response.data.data.message);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error(error.message);
     }
   };
@@ -48,8 +50,7 @@ const LoginForm = () => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
+    if (isAuthenticated()) {
       router.push('/');
     }
   }, []);

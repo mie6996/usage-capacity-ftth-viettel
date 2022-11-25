@@ -6,7 +6,7 @@ const BarChart = ({ trafficMonths }) => {
   const barChartData = trafficMonths;
 
   const options = {
-    responsive: true,
+    // responsive: true,
     plugins: {
       legend: {
         position: 'top',

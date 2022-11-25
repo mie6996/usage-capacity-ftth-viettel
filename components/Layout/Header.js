@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
+import { isAuthenticated, unauthenticateUser } from '../../auth';
 import favicon from '../../public/favicon.png';
 import logo from '../../public/viettel-logo.png';
 
@@ -12,6 +13,12 @@ const Header = () => {
       router.push('/login');
     }
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    unauthenticateUser();
+    router.push('/login');
+  };
 
   return (
     <>
@@ -27,13 +34,21 @@ const Header = () => {
                 ></Image>
               </div>
             </div>
-            <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              <Image
-                className="h-8 w-8 rounded-full"
-                src={favicon}
-                alt="Avatar"
-              ></Image>
-            </div>
+            {isAuthenticated() ? (
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <Image
+                  className="h-8 w-8 rounded-full"
+                  src={favicon}
+                  alt="Avatar"
+                ></Image>
+                <button
+                  onClick={handleLogout}
+                  className="mx-4 p-2 bg-red-400 rounded-lg"
+                >
+                  Log out
+                </button>
+              </div>
+            ) : null}
           </div>
         </div>
       </nav>

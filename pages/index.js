@@ -11,6 +11,7 @@ import {
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { isAuthenticated } from '../auth';
 import BarChart from '../components/home/BarChart';
 import PieChart from '../components/home/PieChart';
 import Toast from '../components/Toast';
@@ -90,8 +91,10 @@ export default function Home() {
   };
 
   useEffect(() => {
+    if (!isAuthenticated()) {
+      router.push('/login');
+    }
     const token = localStorage.getItem('token');
-    token ? router.push('/') : router.push('/login');
     setTimeState({
       ...timeState,
       token: token,
