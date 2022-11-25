@@ -48,17 +48,18 @@ export default function Home() {
     try {
       const response = await axios.post("/api/traffic", timeState);
       if (response.data.success) {
-        setDataState({
-          ...dataState,
-          trafficMonths: response.data.data.data.trafficMonths,
-          sumDownload: response.data.data.data.sumDownload,
-          sumUpload: response.data.data.data.sumUpload,
-          sumTotalUse: response.data.data.data.sumTotalUse,
-        });
-
-        // Update pieChartData
+        if (response.data.data) {
+          setDataState({
+            ...dataState,
+            trafficMonths: response.data.data.data.trafficMonths,
+            sumDownload: response.data.data.data.sumDownload,
+            sumUpload: response.data.data.data.sumUpload,
+            sumTotalUse: response.data.data.data.sumTotalUse,
+          });
+        }
       } else {
-        console.log(response.data.message);
+        localStorage.removeItem("token");
+        router.push("/login");
       }
     } catch (error) {
       console.log(error);
@@ -143,6 +144,7 @@ export default function Home() {
             <PieChart
               sumDownload={dataState.sumDownload}
               sumUpload={dataState.sumUpload}
+              sumTotalUse={dataState.sumTotalUse}
             />
           </div>
           <div className="p-8 w-full">

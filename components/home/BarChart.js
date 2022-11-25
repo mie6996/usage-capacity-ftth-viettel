@@ -1,6 +1,6 @@
-import React from "react";
-import { Bar } from "react-chartjs-2";
-import { parse2GB } from "../../common/helpers";
+import React from 'react';
+import { Bar } from 'react-chartjs-2';
+import { parse2GB } from '../../common/helpers';
 
 const BarChart = ({ trafficMonths }) => {
   const barChartData = trafficMonths;
@@ -9,11 +9,11 @@ const BarChart = ({ trafficMonths }) => {
     responsive: true,
     plugins: {
       legend: {
-        position: "top",
+        position: 'top',
       },
       title: {
         display: true,
-        text: "Dung lượng sử dụng hàng ngày",
+        text: 'Dung lượng sử dụng hàng ngày',
         font: {
           size: 14,
         },
@@ -21,13 +21,13 @@ const BarChart = ({ trafficMonths }) => {
       tooltip: {
         callbacks: {
           label: function (context) {
-            let label = context.dataset.label || "";
+            let label = context.dataset.label || '';
 
             if (label) {
-              label += ": ";
+              label += ': ';
             }
             if (context.raw !== null) {
-              label += context.raw + " GB";
+              label += context.raw + ' GB';
             }
             return label;
           },
@@ -40,19 +40,19 @@ const BarChart = ({ trafficMonths }) => {
     labels: barChartData?.map((_) => _.date),
     datasets: [
       {
-        label: "Upload",
+        label: 'Tải lên',
         data: barChartData?.map((_) => parse2GB(_.download)),
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
+        backgroundColor: 'rgba(53, 162, 235)',
       },
       {
-        label: "Download",
+        label: 'Tải xuống',
         data: barChartData?.map((_) => parse2GB(_.upload)),
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        backgroundColor: 'rgba(255, 99, 132)',
       },
       {
-        label: "Total use",
+        label: 'Tổng',
         data: barChartData?.map((_) => parse2GB(_.totalUse)),
-        backgroundColor: "rgba(153, 102, 255, 0.5)",
+        backgroundColor: 'rgba(153, 102, 255)',
       },
     ],
   };
