@@ -1,51 +1,18 @@
 import axios from 'axios';
-import {
-  BarElement,
-  CategoryScale,
-  Chart as ChartJS,
-  Legend,
-  LinearScale,
-  Title,
-  Tooltip,
-} from 'chart.js/auto';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
-import { isAuthenticated } from '../auth';
-import BarChart from '../components/home/BarChart';
-import PieChart from '../components/home/PieChart';
-import Toast from '../components/Toast';
+import { useEffect } from 'react';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+import { toast } from 'react-toastify';
+import Toast from '../common/Toast';
+import Charts from '../components/Home/Charts';
+import useTime from '../hooks/useTime';
+import useUser from '../hooks/useUser';
 
 export default function Home() {
   const router = useRouter();
 
-  const currentMonth = new Date().getMonth() + 1;
-  const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-
-  const currentYear = new Date().getFullYear();
-  const years = [currentYear - 1, currentYear, currentYear + 1];
-
-  const [timeState, setTimeState] = useState({
-    token: '',
-    month: currentMonth,
-    year: currentYear,
-  });
-
-  const [dataState, setDataState] = useState({
-    trafficMonths: [],
-    sumDownload: 0,
-    sumUpload: 0,
-    sumTotalUse: 0,
-  });
+  const { months, years, timeState, dataState, setTimeState, setDataState } =
+    useTime();
 
   const getData = async () => {
     try {
@@ -65,7 +32,7 @@ export default function Home() {
         }
       } else {
         localStorage.removeItem('token');
-        router.push('/login');
+        // router.push('/login');
       }
     } catch (error) {
       console.log(error);
@@ -74,6 +41,7 @@ export default function Home() {
 
   useEffect(() => {
     getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeState]);
 
   const handleChangeMonth = (e) => {
@@ -90,15 +58,13 @@ export default function Home() {
     });
   };
 
-  useEffect(() => {
-    if (!isAuthenticated()) {
-      router.push('/login');
+  const { isAuthenticated } = useUser();
+
+  useEffect(async () => {
+    if (await isAuthenticated()) {
+      router.push('/');
     }
-    const token = localStorage.getItem('token');
-    setTimeState({
-      ...timeState,
-      token: token,
-    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -147,18 +113,7 @@ export default function Home() {
             </select>
           </div>
         </div>
-        <div className="flex justify-center flex-col items-center w-full">
-          <div>
-            <PieChart
-              sumDownload={dataState.sumDownload}
-              sumUpload={dataState.sumUpload}
-              sumTotalUse={dataState.sumTotalUse}
-            />
-          </div>
-          <div className="sm:p-8 w-full">
-            <BarChart trafficMonths={dataState.trafficMonths} />
-          </div>
-        </div>
+        <Charts data={dataState} />
       </div>
     </>
   );

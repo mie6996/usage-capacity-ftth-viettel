@@ -1,19 +1,19 @@
-import Head from "next/head";
-import React from "react";
-import Footer from "./footer";
-import Header from "./header";
+import Head from 'next/head';
+import React from 'react';
+import Footer from './Footer';
+import Header from './Header';
 
-const Layout = ({ children }) => {
+export default function Layout({ children }) {
   return (
     <>
-      <Head>
-        <title>Data Viettel</title>
-      </Head>
-      <Header />
-      <main>{children}</main>
-      <Footer />
+      <div className="flex flex-col h-screen">
+        <Head>
+          <title>Data Viettel</title>
+        </Head>
+        <Header />
+        <main className="grow">{children}</main>
+        <Footer />
+      </div>
     </>
   );
-};
-
-export default Layout;
+}

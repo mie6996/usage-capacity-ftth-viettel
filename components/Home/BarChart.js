@@ -1,12 +1,11 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-import { parse2GB } from '../../common/helpers';
+import { parse2GB } from '../../common/parse2GB';
 
 const BarChart = ({ trafficMonths }) => {
-  const barChartData = trafficMonths;
+  const barChartData = trafficMonths || [];
 
   const options = {
-    // responsive: true,
     plugins: {
       legend: {
         position: 'top',
@@ -56,7 +55,11 @@ const BarChart = ({ trafficMonths }) => {
       },
     ],
   };
-  return <Bar data={chartData} options={options} />;
+  return (
+    <>
+      <Bar data={chartData} options={options} />
+    </>
+  );
 };
 
 export default BarChart;
