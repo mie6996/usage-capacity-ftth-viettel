@@ -1,14 +1,10 @@
 import axios from 'axios';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import Charts from '../components/home/Charts.js';
 import useTime from '../lib/hooks/useTime.js';
-import useUser from '../lib/hooks/useUser.js';
+import { useEffect } from 'react';
 
 export default function Home() {
-  const router = useRouter();
-
   const { months, years, timeState, dataState, setTimeState, setDataState } =
     useTime();
 
@@ -28,9 +24,6 @@ export default function Home() {
         } else {
           toast.error(response.data.message);
         }
-      } else {
-        localStorage.removeItem('token');
-        // router.push('/login');
       }
     } catch (error) {
       console.log(error);
@@ -55,15 +48,6 @@ export default function Home() {
       year: e.target.value,
     });
   };
-
-  const { isAuthenticated } = useUser();
-
-  useEffect(() => {
-    if (isAuthenticated()) {
-      router.push('/');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <>

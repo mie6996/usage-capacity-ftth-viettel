@@ -1,15 +1,16 @@
 import React from 'react';
+import Auth from '../common/Auth/Auth';
 import Footer from './Footer';
 import Header from './Header';
 
-export default function Layout({ children }) {
+const Layout = ({ children }) => {
   return (
-    <>
-      <div className="flex flex-col h-screen">
-        <Header />
-        <main className="grow">{children}</main>
-        <Footer />
-      </div>
-    </>
+    <Auth>
+      <Header />
+      <main className="grow">{children}</main>
+      <Footer />
+    </Auth>
   );
-}
+};
+
+export default Layout;

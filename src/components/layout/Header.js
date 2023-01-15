@@ -1,21 +1,16 @@
-import axios from 'axios';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import React from 'react';
-import { Toaster, toast } from 'react-hot-toast';
-import useUser from '../../lib/hooks/useUser';
-import logo from '../../../public/viettel-logo.png';
+import { Toaster } from 'react-hot-toast';
 import favicon from '../../../public/favicon.png';
+import logo from '../../../public/viettel-logo.png';
+import { logoutAsync, selectIsAuthenticating } from '../../store/auth';
+import { useAppDispatch, useAppSelector } from '../../store/store';
+import { useRouter } from 'next/router';
 
 const Header = () => {
   const router = useRouter();
-  const { isAuthenticated } = useUser();
-
-  const handleLogout = async () => {
-    const response = await axios.get('/api/auth/logout');
-    toast.success(response.data.message);
-    router.push('/login');
-  };
+  const isAuthenticated = useAppSelector(selectIsAuthenticating);
+  const dispatch = useAppDispatch();
 
   return (
     <>
@@ -36,7 +31,7 @@ const Header = () => {
             </div>
 
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              {isAuthenticated() ? (
+              {isAuthenticated ? (
                 <>
                   <Image
                     className="h-8 w-8 rounded-full"
@@ -44,7 +39,10 @@ const Header = () => {
                     alt="Avatar"
                   ></Image>
                   <button
-                    onClick={handleLogout}
+                    onClick={() => {
+                      dispatch(logoutAsync());
+                      router.push('/login');
+                    }}
                     className="mx-4 p-2 bg-red-400 rounded-lg"
                   >
                     Log out

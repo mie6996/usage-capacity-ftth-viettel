@@ -1,18 +1,17 @@
-import axios from 'axios';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import useUser from '../../lib/hooks/useUser.js';
+import { useDispatch } from 'react-redux';
+import { loginAsync } from '../../store/auth/index.js';
 
 export default function LoginForm() {
+  const dispatch = useDispatch();
   const router = useRouter();
 
   const [loginForm, setLoginForm] = useState({
     account: '',
     password: '',
   });
-
-  const { isAuthenticated } = useUser();
 
   const { account, password } = loginForm;
 
@@ -23,37 +22,29 @@ export default function LoginForm() {
     });
   };
 
-  const login = async (loginForm) => {
-    if (!account || !password) {
-      toast.error('Vui lòng nhập đầy đủ thông tin');
-      return;
-    }
-
-    try {
-      const response = await axios.post('/api/auth/login', loginForm);
-      if (response.data.success === true) {
-        router.push('/');
-      } else {
-        toast.error(response.data.data.message);
-      }
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
-
   const submitLoginForm = (e) => {
     e.preventDefault();
     login(loginForm);
   };
 
-  useEffect(() => {
-    if (isAuthenticated()) {
-      router.push('/');
-    } else {
-      router.push('/login');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const login = (loginForm) => {
+    const result = dispatch(loginAsync(loginForm));
+
+    toast.promise(result, {
+      loading: 'Đang đăng nhập...',
+      success: (data) => {
+        if (data.payload.success) {
+          router.push('/');
+          return 'Đăng nhập thành công';
+        }
+        return data.payload.data.message;
+      },
+      error: (error) => {
+        console.log(error);
+        return 'Đăng nhập thất bại';
+      },
+    });
+  };
 
   return (
     <>

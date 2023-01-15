@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import { useAppSelector } from '../../store/store';
+import { selectToken } from '../../store/auth';
 
 const useTime = () => {
+  const token = useAppSelector(selectToken);
   const currentMonth = new Date().getMonth() + 1;
   const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
@@ -8,7 +11,7 @@ const useTime = () => {
   const years = [currentYear - 1, currentYear, currentYear + 1];
 
   const [timeState, setTimeState] = useState({
-    token: '',
+    token: token,
     month: currentMonth,
     year: currentYear,
   });
