@@ -1,10 +1,8 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import Toast from '../../common/Toast';
-import useUser from '../../hooks/useUser';
+import { toast } from 'react-hot-toast';
+import useUser from '../../lib/hooks/useUser.js';
 
 export default function LoginForm() {
   const router = useRouter();
@@ -59,7 +57,6 @@ export default function LoginForm() {
 
   return (
     <>
-      <Toast />
       <div className="h-full">
         <form
           onSubmit={submitLoginForm}

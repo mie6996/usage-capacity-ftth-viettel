@@ -1,12 +1,10 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-
-import { toast } from 'react-toastify';
-import Toast from '../common/Toast';
 import Charts from '../components/Home/Charts';
-import useTime from '../hooks/useTime';
-import useUser from '../hooks/useUser';
+import useTime from '../lib/hooks/useTime';
+import { toast } from 'react-hot-toast';
+import useUser from '../lib/hooks/useUser';
 
 export default function Home() {
   const router = useRouter();
@@ -60,8 +58,8 @@ export default function Home() {
 
   const { isAuthenticated } = useUser();
 
-  useEffect(async () => {
-    if (await isAuthenticated()) {
+  useEffect(() => {
+    if (isAuthenticated()) {
       router.push('/');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -69,7 +67,6 @@ export default function Home() {
 
   return (
     <>
-      <Toast />
       <div className="flex flex-col justify-center">
         <div className="flex p-4 justify-center">
           <div className="p-4">

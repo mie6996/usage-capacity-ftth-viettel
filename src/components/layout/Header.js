@@ -2,15 +2,13 @@ import axios from 'axios';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { toast } from 'react-toastify';
-import Toast from '../../common/Toast';
-import useUser from '../../hooks/useUser';
-import favicon from '../../public/favicon.png';
-import logo from '../../public/viettel-logo.png';
+import { Toaster, toast } from 'react-hot-toast';
+import useUser from '../../lib/hooks/useUser';
+import logo from '../../../public/viettel-logo.png';
+import favicon from '../../../public/favicon.png';
 
 const Header = () => {
   const router = useRouter();
-
   const { isAuthenticated } = useUser();
 
   const handleLogout = async () => {
@@ -21,7 +19,9 @@ const Header = () => {
 
   return (
     <>
-      <Toast />
+      <div>
+        <Toaster />
+      </div>
       <nav className="bg-gray-800">
         <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
           <div className="relative flex items-center justify-between h-16">

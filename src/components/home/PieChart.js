@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pie } from 'react-chartjs-2';
-import { parse2GB } from '../../common/parse2GB';
+import { parse2GB } from '../../lib/utils/parse2GB';
 
 const PieChart = ({ sumDownload, sumUpload, sumTotalUse }) => {
   const pieChartData = [

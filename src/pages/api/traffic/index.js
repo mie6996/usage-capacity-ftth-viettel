@@ -29,7 +29,7 @@ export default async function handler(req, res) {
       });
     }
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     if (error.code === 'ERR_BAD_REQUEST') {
       return res
         .status(200)
