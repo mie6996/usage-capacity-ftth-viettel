@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import Charts from '../components/Home/Charts.js';
-import useTime from '../lib/hooks/useTime.js';
 import { toast } from 'react-hot-toast';
+import Charts from '../components/home/Charts.js';
+import useTime from '../lib/hooks/useTime.js';
 import useUser from '../lib/hooks/useUser.js';
 
 export default function Home() {
