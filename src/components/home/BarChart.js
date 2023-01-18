@@ -48,11 +48,6 @@ const BarChart = ({ trafficMonths }) => {
         data: barChartData?.map((_) => parse2GB(_.upload)),
         backgroundColor: 'rgba(255, 99, 132)',
       },
-      {
-        label: 'Tổng',
-        data: barChartData?.map((_) => parse2GB(_.totalUse)),
-        backgroundColor: 'rgba(153, 102, 255)',
-      },
     ],
   };
   return (

@@ -21,16 +21,12 @@ ChartJS.register(
 );
 
 const Charts = memo(({ data }) => {
-  const { sumDownload, sumUpload, sumTotalUse, trafficMonths } = data;
+  const { sumDownload, sumUpload, trafficMonths } = data;
   return (
     <>
       <div className="flex justify-center flex-col items-center w-full">
         <div>
-          <PieChart
-            sumDownload={sumDownload}
-            sumUpload={sumUpload}
-            sumTotalUse={sumTotalUse}
-          />
+          <PieChart sumDownload={sumDownload} sumUpload={sumUpload} />
         </div>
         <div className="sm:p-8 w-full">
           <BarChart trafficMonths={trafficMonths} />

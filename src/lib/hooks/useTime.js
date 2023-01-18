@@ -4,16 +4,12 @@ import { selectToken } from '../../store/auth';
 
 const useTime = () => {
   const token = useAppSelector(selectToken);
-  const currentMonth = new Date().getMonth() + 1;
-  const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-
-  const currentYear = new Date().getFullYear();
-  const years = [currentYear - 1, currentYear, currentYear + 1];
+  const date = new Date(new Date().setMonth(new Date().getMonth() - 2));
 
   const [timeState, setTimeState] = useState({
     token: token,
-    month: currentMonth,
-    year: currentYear,
+    month: '',
+    year: '',
   });
 
   const [dataState, setDataState] = useState({
@@ -24,8 +20,7 @@ const useTime = () => {
   });
 
   return {
-    months,
-    years,
+    date,
     timeState,
     dataState,
     setTimeState,

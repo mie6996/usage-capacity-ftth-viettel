@@ -5,6 +5,7 @@ import authReducer from './auth';
 const store = configureStore({
   reducer: {
     auth: authReducer,
+    // traffic: trafficReducer,
   },
 });
 

@@ -8,6 +8,15 @@ export default async function handler(req, res) {
         req.body
       );
 
+      console.log(response.data);
+
+      if (response.data.errorCode === 500) {
+        return res.status(200).json({
+          success: false,
+          message: 'Server bị lỗi. Thử lại sau',
+        });
+      }
+
       if (response.data.errorCode === '0') {
         return res.status(200).json({
           success: true,
@@ -25,7 +34,7 @@ export default async function handler(req, res) {
 
       return res.status(200).json({
         success: true,
-        message: response.data.data.resultString,
+        message: response.data.data.message,
       });
     }
   } catch (error) {
