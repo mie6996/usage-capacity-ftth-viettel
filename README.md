@@ -2,7 +2,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First, create .env file
+```
+VIETTEL_URL_LOGIN='https://viettel.vn/api/login-user-by-contract'
+VIETTEL_URL_GET_DATA='https://viettel.vn/api/get-adsl-genenal-traffic'
+```
+Second, run the development server:
+
 
 ```bash
 npm run dev
