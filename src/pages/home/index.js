@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="flex flex-col justify-center">
+      <div className="flex flex-col justify-center rounded-xl border-slate-900 p-6 m-8 shadow-2xl">
         <Filter dataState={dataState} setDataState={setDataState} />
         <Charts data={dataState} />
       </div>

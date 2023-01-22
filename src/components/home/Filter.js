@@ -52,25 +52,21 @@ const Filter = ({ dataState, setDataState }) => {
   }, [timeState]);
 
   return (
-    <div className="flex p-4 justify-center">
-      <div className="">
-        <label className="mb-2 text-black bg-white font-bold text-lg">
-          Chọn tháng
-        </label>
-        <select
-          id="time"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          onChange={handleSelectTime}
-        >
-          {months.map((month, index) => {
-            return (
-              <option key={index} value={`${month}-${years.at(index)}`}>
-                Tháng {month}/{years.at(index)}
-              </option>
-            );
-          })}
-        </select>
-      </div>
+    <div className="flex p-4 justify-center shadow-xl mx-auto rounded border-slate-900">
+      <label className="text-black font-bold text-lg m-auto pr-2">Tháng:</label>
+      <select
+        id="time"
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        onChange={handleSelectTime}
+      >
+        {months.map((month, index) => {
+          return (
+            <option key={index} value={`${month}-${years.at(index)}`}>
+              Tháng {month}/{years.at(index)}
+            </option>
+          );
+        })}
+      </select>
     </div>
   );
 };

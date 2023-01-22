@@ -34,11 +34,14 @@ const Header = () => {
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               {isAuthenticated ? (
                 <>
-                  <div>
-                    <div className="text-white">
-                      Tài khoản: {user.phone_number}
+                  <div className="rounded shadow-xl border-slate-400 p-2 m-2">
+                    <div className="text-white font-bold">
+                      Tài khoản:{'  '}
+                      <span className="font-normal">{user.phone_number}</span>
                     </div>
-                    <div className="text-white">Tên: {user.fullName}</div>
+                    <div className="text-white font-bold">
+                      Tên: <span className="font-normal">{user.fullName}</span>
+                    </div>
                   </div>
                   <button
                     onClick={() => {
