@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 const Header = () => {
   const router = useRouter();
   const isAuthenticated = useAppSelector(selectIsAuthenticating);
+  const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
 
   return (
@@ -33,11 +34,12 @@ const Header = () => {
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               {isAuthenticated ? (
                 <>
-                  <Image
-                    className="h-8 w-8 rounded-full"
-                    src={favicon}
-                    alt="Avatar"
-                  ></Image>
+                  <div>
+                    <div className="text-white">
+                      Tài khoản: {user.phone_number}
+                    </div>
+                    <div className="text-white">Tên: {user.fullName}</div>
+                  </div>
                   <button
                     onClick={() => {
                       dispatch(logoutAsync());
@@ -45,7 +47,7 @@ const Header = () => {
                     }}
                     className="mx-4 p-2 bg-red-400 rounded-lg"
                   >
-                    Log out
+                    Đăng xuất
                   </button>
                 </>
               ) : null}

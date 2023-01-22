@@ -1,9 +1,9 @@
 import React from 'react';
-import { Pie } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 import { parse2GB } from '../../lib/utils/parse2GB';
 
-const PieChart = ({ sumDownload, sumUpload }) => {
-  const pieChartData = [parse2GB(sumDownload), parse2GB(sumUpload)];
+const DoughnutChart = ({ sumDownload, sumUpload }) => {
+  const data = [parse2GB(sumDownload), parse2GB(sumUpload)];
 
   const options = {
     responsive: true,
@@ -38,7 +38,7 @@ const PieChart = ({ sumDownload, sumUpload }) => {
     datasets: [
       {
         label: 'Dung lượng',
-        data: pieChartData?.map((_) => _),
+        data: data?.map((_) => _),
         backgroundColor: ['rgba(255, 99, 132, 0.8)', 'rgba(54, 162, 235, 0.8)'],
         borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
         borderWidth: 4,
@@ -48,9 +48,9 @@ const PieChart = ({ sumDownload, sumUpload }) => {
 
   return (
     <>
-      <Pie data={chartData} options={options} />
+      <Doughnut data={chartData} options={options} />
     </>
   );
 };
 
-export default PieChart;
+export default DoughnutChart;

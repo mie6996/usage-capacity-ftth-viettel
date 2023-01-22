@@ -4,11 +4,23 @@ import { selectToken } from '../../store/auth';
 
 const useTime = () => {
   const token = useAppSelector(selectToken);
-  const currentMonth = new Date().getMonth() + 1;
-  const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  let currentDate = new Date();
 
-  const currentYear = new Date().getFullYear();
-  const years = [currentYear - 1, currentYear, currentYear + 1];
+  // get 3 months before current month
+  let currentMonth = currentDate.getMonth() + 1;
+  let currentYear = currentDate.getFullYear();
+  let months = [];
+  let years = [];
+
+  for (let i = 0; i < 3; i++) {
+    months.push(currentMonth);
+    years.push(currentYear);
+    currentMonth--;
+    if (currentMonth === 0) {
+      currentMonth = 12;
+      currentYear--;
+    }
+  }
 
   const [timeState, setTimeState] = useState({
     token: token,
@@ -16,20 +28,11 @@ const useTime = () => {
     year: currentYear,
   });
 
-  const [dataState, setDataState] = useState({
-    trafficMonths: [],
-    sumDownload: 0,
-    sumUpload: 0,
-    sumTotalUse: 0,
-  });
-
   return {
     months,
     years,
     timeState,
-    dataState,
     setTimeState,
-    setDataState,
   };
 };
 

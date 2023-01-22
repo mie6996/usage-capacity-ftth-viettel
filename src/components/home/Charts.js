@@ -8,8 +8,8 @@ import {
   Tooltip,
 } from 'chart.js/auto';
 import { memo } from 'react';
-import BarChart from './BarChart';
-import PieChart from './PieChart';
+import PieChart from './DoughnutChart';
+import LineChart from './LineChart';
 
 ChartJS.register(
   CategoryScale,
@@ -33,7 +33,7 @@ const Charts = memo(({ data }) => {
           />
         </div>
         <div className="sm:p-8 w-full">
-          <BarChart trafficMonths={trafficMonths} />
+          <LineChart trafficMonths={trafficMonths} />
         </div>
       </div>
     </>
