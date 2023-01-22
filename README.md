@@ -11,8 +11,9 @@ Second, run the development server:
 
 
 ```bash
-npm run dev
-# or
+1. Install library
+yarn
+2. Run
 yarn dev
 ```
 
