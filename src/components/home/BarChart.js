@@ -42,16 +42,13 @@ const BarChart = ({ trafficMonths }) => {
         label: 'Tải lên',
         data: barChartData?.map((_) => parse2GB(_.download)),
         backgroundColor: 'rgba(53, 162, 235)',
+        borderWidth: 1,
       },
       {
         label: 'Tải xuống',
         data: barChartData?.map((_) => parse2GB(_.upload)),
         backgroundColor: 'rgba(255, 99, 132)',
-      },
-      {
-        label: 'Tổng',
-        data: barChartData?.map((_) => parse2GB(_.totalUse)),
-        backgroundColor: 'rgba(153, 102, 255)',
+        borderWidth: 1,
       },
     ],
   };

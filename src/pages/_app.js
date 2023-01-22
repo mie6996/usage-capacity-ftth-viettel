@@ -1,21 +1,24 @@
 import Head from 'next/head';
 import { Toaster } from 'react-hot-toast';
-import Layout from '../components/layout/Layout';
-import '../styles/globals.css';
 import { Provider } from 'react-redux';
-import store from '../store/store.js';
+import { PersistGate } from 'redux-persist/integration/react';
+import Layout from '../components/layout/Layout';
+import { persistor, rootStore } from '../store/store.js';
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <Provider store={store}>
-        <Head>
-          <title>Data Viettel</title>
-        </Head>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-        <Toaster />
+      <Provider store={rootStore}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Head>
+            <title>Data Viettel</title>
+          </Head>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+          <Toaster />
+        </PersistGate>
       </Provider>
     </>
   );

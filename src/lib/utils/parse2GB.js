@@ -1,3 +1,3 @@
 export const parse2GB = (value) => {
-  return (value / 1024 / 1024 / 1024).toFixed(2);
+  return (value / Math.pow(1000, 3)).toFixed(2);
 };
