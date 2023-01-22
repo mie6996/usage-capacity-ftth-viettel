@@ -36,12 +36,13 @@ export default function LoginForm() {
         if (data.payload.success) {
           router.push('/');
           return 'Đăng nhập thành công';
+        } else {
+          return 'Tài khoản hoặc mật khẩu không đúng';
         }
-        return data.payload.data.message;
       },
       error: (error) => {
         console.log(error);
-        return 'Đăng nhập thất bại';
+        return 'Tài khoản hoặc mật khẩu không đúng';
       },
     });
   };

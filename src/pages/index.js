@@ -8,23 +8,32 @@ export default function Home() {
   const { months, years, timeState, dataState, setTimeState, setDataState } =
     useTime();
 
-  const getData = async () => {
+  const getData = () => {
     try {
-      const response = await axios.post('/api/traffic', timeState);
-      if (response.data.success) {
-        if (response.data.data) {
-          setDataState({
-            ...dataState,
-            trafficMonths: response.data.data.trafficMonths,
-            sumDownload: response.data.data.sumDownload,
-            sumUpload: response.data.data.sumUpload,
-            sumTotalUse: response.data.data.sumTotalUse,
-          });
-          toast.success(response.data.message);
-        } else {
-          toast.error(response.data.message);
-        }
-      }
+      const response = axios.post('/api/traffic', timeState);
+
+      toast.promise(response, {
+        loading: 'Đang tải dữ liệu...',
+        success: (data) => {
+          if (data.data.success) {
+            if (data.data.data) {
+              setDataState({
+                ...dataState,
+                trafficMonths: data.data.data.trafficMonths,
+                sumDownload: data.data.data.sumDownload,
+                sumUpload: data.data.data.sumUpload,
+                sumTotalUse: data.data.data.sumTotalUse,
+              });
+              return 'Tải dữ liệu thành công';
+            }
+            return data.data.message;
+          }
+        },
+        error: (error) => {
+          console.log(error);
+          return 'Đã có lỗi xảy ra';
+        },
+      });
     } catch (error) {
       console.log(error);
     }

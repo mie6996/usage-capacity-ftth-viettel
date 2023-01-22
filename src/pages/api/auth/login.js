@@ -9,12 +9,18 @@ export default async function handler(req, res) {
       );
       const token = response.data.data.data.token;
 
-      res.status(200).json({
-        success: true,
-        data: {
-          token: token,
-          user: response.data.data.data,
-        },
+      if (token) {
+        return res.status(200).json({
+          success: true,
+          data: {
+            token: token,
+            user: response.data.data.data,
+          },
+        });
+      }
+
+      return res.status(200).json({
+        success: false,
       });
     }
   } catch (error) {
