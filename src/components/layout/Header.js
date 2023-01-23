@@ -1,11 +1,10 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { Toaster } from 'react-hot-toast';
-import favicon from '../../../public/favicon.png';
 import logo from '../../../public/viettel-logo.png';
 import { logoutAsync, selectIsAuthenticating } from '../../store/auth';
 import { useAppDispatch, useAppSelector } from '../../store/store';
-import { useRouter } from 'next/router';
 
 const Header = () => {
   const router = useRouter();

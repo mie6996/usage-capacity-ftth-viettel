@@ -55,7 +55,7 @@ const LineChart = ({ trafficMonths }) => {
         borderWidth: 1,
       },
       {
-        fill: true,
+        // fill: true,
         label: 'Tổng',
         data: barChartData?.map((_) => parse2GB(_.totalUse)),
         backgroundColor: 'rgba(255, 205, 86)',

@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <>
       <footer className="bg-slate-800 flex justify-center p-4">
-        <a href="https://github.com/xuanphat0603" className="px-2">
+        <a href="https://github.com/mie6996" className="px-2">
           <svg
             aria-hidden="true"
             focusable="false"
