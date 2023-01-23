@@ -23,15 +23,23 @@ export const authSlice = createSlice({
     logout(state) {
       state.user = null;
       state.token = null;
+      state.isLoading = false;
       state.isAuthenticating = false;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(loginAsync.fulfilled, (state, action) => {
-        state.token = action.payload.data.token;
-        state.user = action.payload.data.user;
-        state.isAuthenticating = true;
+        if (action.payload.success == false) {
+          state.token = null;
+          state.user = null;
+          state.isAuthenticating = false;
+          state.isLoading = false;
+        } else {
+          state.token = action.payload.data.token;
+          state.user = action.payload.data.user;
+          state.isAuthenticating = true;
+        }
       })
       .addCase(loginAsync.rejected, (state) => {
         state.token = null;
@@ -40,6 +48,7 @@ export const authSlice = createSlice({
       })
       .addCase(loginAsync.pending, (state) => {
         state.isLoading = true;
+        state.isAuthenticating = false;
       });
 
     builder
@@ -47,6 +56,7 @@ export const authSlice = createSlice({
         state.user = null;
         state.token = null;
         state.isAuthenticating = false;
+        state.isLoading = false;
       })
       .addCase(logoutAsync.rejected, (state) => {
         state.user = null;

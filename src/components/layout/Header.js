@@ -37,10 +37,10 @@ const Header = () => {
                   <div className="rounded shadow-xl border-slate-400 p-2 m-2">
                     <div className="text-white font-bold">
                       Tài khoản:{'  '}
-                      <span className="font-normal">{user.phone_number}</span>
+                      <span className="font-normal">{user?.phone_number}</span>
                     </div>
                     <div className="text-white font-bold">
-                      Tên: <span className="font-normal">{user.fullName}</span>
+                      Tên: <span className="font-normal">{user?.fullName}</span>
                     </div>
                   </div>
                   <button
