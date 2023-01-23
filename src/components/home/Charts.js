@@ -9,7 +9,7 @@ import {
 } from 'chart.js/auto';
 import { memo } from 'react';
 import PieChart from './DoughnutChart';
-import LineChart from './LineChart';
+import BarChart from './BarChart';
 
 ChartJS.register(
   CategoryScale,
@@ -33,7 +33,7 @@ const Charts = memo(({ data }) => {
           />
         </div>
         <div className="sm:p-8 w-full shadow-xl p-8 m-2 rounded-xl">
-          <LineChart trafficMonths={trafficMonths} />
+          <BarChart trafficMonths={trafficMonths} />
         </div>
       </div>
     </>

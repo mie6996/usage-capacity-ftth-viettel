@@ -1,8 +1,8 @@
 import React from 'react';
-import { Line } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import { parse2GB } from '../../lib/utils/parse2GB';
 
-const LineChart = ({ trafficMonths }) => {
+const BarChart = ({ trafficMonths }) => {
   const barChartData = trafficMonths || [];
 
   const options = {
@@ -65,9 +65,9 @@ const LineChart = ({ trafficMonths }) => {
   };
   return (
     <>
-      <Line data={chartData} options={options} />
+      <Bar data={chartData} options={options} />
     </>
   );
 };
 
-export default LineChart;
+export default BarChart;
