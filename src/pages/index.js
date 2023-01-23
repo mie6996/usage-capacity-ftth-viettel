@@ -1,8 +1,12 @@
 import React from 'react';
-import Home from './Home/index.js';
+import Home from './home';
 
 const index = () => {
-  return <Home />;
+  return (
+    <>
+      <Home />
+    </>
+  );
 };
 
 export default index;
