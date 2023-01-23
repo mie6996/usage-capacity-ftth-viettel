@@ -49,17 +49,17 @@ export default function LoginForm() {
 
   return (
     <>
-      <div className="h-full">
+      <div className="mx-auto w-1/3 h-full mt-10">
         <form
           onSubmit={submitLoginForm}
-          className="bg-white drop-shadow-lg rounded sm:m-10 sm:p-4 p-4"
+          className="bg-white drop-shadow-lg rounded p-10 space-y-4"
         >
-          <div className="mb-6">
+          <div>
             <div className="block text-gray-700 text-5xl font-bold text-center">
-              Đăng nhập
+              Login
             </div>
           </div>
-          <div className="mb-6">
+          <div>
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Tài khoản hoặc số điện thoại
             </label>
@@ -73,7 +73,7 @@ export default function LoginForm() {
               onChange={onChangeLoginForm}
             ></input>
           </div>
-          <div className="mb-6">
+          <div>
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Mật khẩu
             </label>

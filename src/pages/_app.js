@@ -11,14 +11,16 @@ function MyApp({ Component, pageProps }) {
     <>
       <Provider store={rootStore}>
         <PersistGate loading={null} persistor={persistor}>
-          <Head>
-            <link rel="icon" href="/favicon.png" />
-            <title>Data Viettel</title>
-          </Head>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-          <Toaster />
+          <>
+            <Head>
+              <link rel="icon" href="/favicon.png" />
+              <title>Data Viettel</title>
+            </Head>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+            <Toaster />
+          </>
         </PersistGate>
       </Provider>
     </>

@@ -6,9 +6,11 @@ import Header from './Header';
 const Layout = ({ children }) => {
   return (
     <Auth>
-      <Header />
-      <main className="grow">{children}</main>
-      <Footer />
+      <div className="h-screen flex flex-col">
+        <Header />
+        <main className="grow">{children}</main>
+        <Footer />
+      </div>
     </Auth>
   );
 };
