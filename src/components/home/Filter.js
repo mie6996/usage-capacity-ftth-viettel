@@ -2,8 +2,13 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import useTime from '../../lib/hooks/useTime';
+import { useAppDispatch } from '../../store/store';
+import { useRouter } from 'next/router';
+import { logoutAsync } from '../../store/auth';
 
 const Filter = ({ dataState, setDataState }) => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
   const { months, years, timeState, setTimeState } = useTime();
 
   const getData = () => {
@@ -24,6 +29,15 @@ const Filter = ({ dataState, setDataState }) => {
               });
               return 'Lấy data thành công';
             }
+            return data.data.message;
+          }
+          // handle logout
+          if (
+            data.data.message ===
+            'Tài khoản của quý khách đã đăng nhập nơi khác. Vui lòng đăng nhập lại để tiếp tục sử dụng.'
+          ) {
+            dispatch(logoutAsync());
+            router.push('/login');
             return data.data.message;
           }
         },

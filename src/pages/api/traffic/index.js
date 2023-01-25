@@ -16,7 +16,7 @@ export default async function handler(req, res) {
         });
       }
 
-      if (response.data.errorCode === '-2') {
+      if (response.data.errorCode === -2) {
         return res.status(200).json({
           success: false,
           message: response.data.data.message,

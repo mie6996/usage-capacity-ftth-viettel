@@ -23,7 +23,7 @@ const Footer = () => {
           </svg>
         </a>
         <div className="text-base font-normal text-white">
-          Xem dung lượng sử dụng hàng tháng ftth Viettel
+          Xem dung lượng sử dụng
         </div>
       </footer>
     </>

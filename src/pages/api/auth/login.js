@@ -7,21 +7,20 @@ export default async function handler(req, res) {
         process.env.VIETTEL_URL_LOGIN,
         req.body
       );
+
       const token = response.data.data.data.token;
 
-      if (token) {
-        return res.status(200).json({
-          success: true,
-          data: {
-            token: token,
-            user: response.data.data.data,
-          },
-        });
-      }
-
-      return res.status(200).json({
-        success: false,
-      });
+      token
+        ? res.status(200).json({
+            success: true,
+            data: {
+              token: token,
+              user: response.data.data.data,
+            },
+          })
+        : res.status(200).json({
+            success: false,
+          });
     }
   } catch (error) {
     console.log(error);

@@ -4,7 +4,7 @@ import { selectToken } from '../../store/auth';
 
 const useTime = () => {
   const token = useAppSelector(selectToken);
-  let currentDate = new Date();
+  const currentDate = new Date();
 
   // get 3 months before current month
   let currentMonth = currentDate.getMonth() + 1;
@@ -12,7 +12,7 @@ const useTime = () => {
   let months = [];
   let years = [];
 
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 4; i++) {
     months.push(currentMonth);
     years.push(currentYear);
     currentMonth--;
@@ -24,8 +24,8 @@ const useTime = () => {
 
   const [timeState, setTimeState] = useState({
     token: token,
-    month: currentMonth,
-    year: currentYear,
+    month: currentDate.getMonth() + 1,
+    year: currentDate.getFullYear(),
   });
 
   return {

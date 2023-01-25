@@ -29,7 +29,7 @@ const Header = () => {
             <div className="inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               {isAuthenticated ? (
                 <>
-                  <div className="rounded shadow-xl border-slate-400 p-2 m-2">
+                  <div className="rounded shadow-xl border-slate-400 p-2 m-2 hidden sm:inline-block">
                     <div className="text-white font-bold">
                       Tài khoản:{'  '}
                       <span className="font-normal">{user?.phone_number}</span>
