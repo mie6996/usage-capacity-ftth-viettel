@@ -3,7 +3,15 @@ import { Bar } from 'react-chartjs-2';
 import { parse2GB } from '../../lib/utils/parse2GB';
 
 const BarChart = ({ trafficMonths }) => {
-  const barChartData = trafficMonths || [];
+  let barChartData = trafficMonths || [];
+  // check trafficMonths is object then convert to array
+  if (typeof trafficMonths === 'object') {
+    const arr = [];
+    for (const key in trafficMonths) {
+      arr.push(trafficMonths[key]);
+    }
+    barChartData = arr;
+  }
 
   const options = {
     responsive: true,
