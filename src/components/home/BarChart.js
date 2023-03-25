@@ -19,13 +19,6 @@ const BarChart = ({ trafficMonths }) => {
       legend: {
         position: 'top',
       },
-      title: {
-        display: true,
-        text: 'Dung lượng sử dụng hàng ngày',
-        font: {
-          size: 14,
-        },
-      },
       tooltip: {
         callbacks: {
           label: function (context) {

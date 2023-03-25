@@ -22,6 +22,7 @@ const Header = () => {
                   className="block h-20 w-auto"
                   src={logo}
                   alt="Viettel Logo"
+                  priority
                 ></Image>
               </div>
             </div>
