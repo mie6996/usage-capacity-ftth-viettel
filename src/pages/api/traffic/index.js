@@ -8,24 +8,16 @@ export default async function handler(req, res) {
         req.body
       );
 
-      if (response.data.errorCode === '0') {
-        return res.status(200).json({
-          success: true,
-          message: 'Lấy data thành công!',
-          data: response.data.data,
-        });
-      }
-
-      if (response.data.errorCode === -2) {
-        return res.status(200).json({
+      if (response.data.errorCode === 3) {
+        return res.status(400).json({
           success: false,
-          message: response.data.data.message,
+          message: response.data,
         });
       }
 
       return res.status(200).json({
         success: true,
-        message: response.data.data.resultString,
+        data: response.data.data,
       });
     }
   } catch (error) {
